@@ -1,0 +1,68 @@
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script src="./js/delete_commute.js"></script>
+
+<h2>Nothing special, see mysql table</h2>
+
+<br>
+<table id="commute-table">
+    <thead>
+        <tr>
+            {{#each data.[0]}}
+            <th>
+                {{@key}}
+            </th>
+            {{/each}}
+            <th>Delete</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        {{#each data}}
+        <tr data-value={{this.ssm}}>
+            <td>{{this.ssm}}</td>
+            <td>{{this.iso_time}}</td>
+            <td>{{this.to_work}}</td>
+            <td>{{this.to_home}}</td>
+            <td>{{this.to_work_no_traffic}}</td>
+            <td>{{this.to_home_no_traffic}}</td>
+            <td>{{this.warnings_wth}}</td>
+            <td>{{this.warnings_htw}}</td>
+            <td>{{this.year_id}}</td>
+            <td>{{this.month_id}}</td>
+            <td>{{this.day_id}}</td>
+            <td>{{this.hour_id}}</td>
+            <td>{{this.minute_id}}</td>
+            <td>{{this.second_id}}</td>
+            <td>{{this.day_of}}</td>
+            <td>{{this.eight_later}}</td>
+            <td>{{this.temp}}</td>
+            <td>{{this.temp_f}}</td>
+            <td>{{this.humidity}}</td>
+            <td>{{this.weather}}</td>
+            <td>{{this.visibility}}</td>
+            <td>{{this.sunrise}}</td>
+            <td>{{this.sunset}}</td>
+            <td>{{this.wind}}</td>
+            <td>{{this.wind_dir}}</td>
+            <td><button onclick="deleteCommute({{this.ssm}})">Delete</button></td>
+        </tr>
+        {{/each}}
+    </tbody>
+</table>
+
+<br>
+<!-- Search -->
+<div class="Search-box">
+    <fieldset class="fields">
+    <legend>Search all commutes by ssm</legend>
+    <form id="search-commutes-html" method='GET' action='/view_data'>
+        <label for="input-ssm"></label>
+        <input type="number" name="ssm" id="input-ssm-html-search" placeholder="Search by SSM...">
+        <br>
+        <br>
+        <input type="submit">
+        <a href='/ssm'><button>Reset</button></a>
+    </form>
+    </fieldset>
+</div>
+

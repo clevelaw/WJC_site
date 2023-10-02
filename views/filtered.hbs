@@ -1,0 +1,51 @@
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script src="./js/delete_filter.js"></script>
+
+
+<h2>Filtering?</h2>
+
+<!-- Search -->
+<div class="Search-box">
+    <fieldset class="fields">
+    <legend>Search all commutes by lots of shit</legend>
+    <form id="search-commutes-html" method='GET' action='/filtered'>
+        <label for="input-ssm"></label>
+        <input type="number" name="ssm" id="input-ssm-html-search" placeholder="Search by SSM...">
+        <label for="input-minute_id"></label>
+        <input type="number" name="minute_id" id="input-minu-html-search" placeholder="Search by MINUTEWJC...">
+        <input type="submit">
+        <a href='/filtered'><button>Reset</button></a>
+    </form>
+    </fieldset>
+</div>
+
+<br>
+<table id="filter-table">
+    <thead>
+        <tr>
+            {{#each data.[0]}}
+            <th>
+                {{@key}}
+            </th>
+            {{/each}}
+            <th>Delete Entry</th>
+
+        </tr>
+
+    </thead>
+
+    <tbody>
+        {{#each data}}
+        <tr data-value={{this.ssm}}>
+            {{#each this}}
+            <td>{{this}}</td>
+            {{/each}}
+            <td><button onclick="deleteFilter({{this.ssm}})">Delete</button></td>
+        </tr>
+        {{/each}}
+    </tbody>
+</table>
+
+<br>
+
+
