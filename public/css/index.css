@@ -112,3 +112,29 @@ footer {
     bottom: 0px;
     width: 100%;
 }
+
+
+
+
+hr {
+    background-image: linear-gradient(to right, #E1E2E1, #304C91, #E1E2E1);
+    border: 0;
+    margin-bottom: 1.8em;
+    height: 1px;
+}
+
+h4, .h3-small {
+    color: #373435;
+    font-size: 1.2em;
+    font-weight: 600;
+    margin: 2px;
+}
+
+::marker {
+    unicode-bidi: isolate;
+    font-variant-numeric: tabular-nums;
+    text-transform: none;
+    text-indent: 0px !important;
+    text-align: start !important;
+    text-align-last: start !important;
+}

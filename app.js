@@ -6,7 +6,7 @@ const express = require("express");
 const { engine } = require("express-handlebars");
 const db = require("./database/db-connector");
 
-const PORT = 9111;
+const PORT = 9112;
 
 const app = express();
 app.use(express.json());
@@ -44,7 +44,7 @@ app.get("/view_data", (req, res) => {
 });
 
 /*filter*/
-app.get("/filtered", (req, res) => {
+app.get("/commuteTable", (req, res) => {
   let query1;
 
   if (req.query.ssm === undefined) {
@@ -54,7 +54,7 @@ app.get("/filtered", (req, res) => {
   }
 
   db.pool.query(query1, (error, rows, fields) => {
-    res.render("filtered", { data: rows });
+    res.render("commuteTable", { data: rows });
   });
 
   const data = res;
@@ -72,20 +72,11 @@ app.get("/grapho", (req, res) => {
   });
 });
 
-/* D3 Graphs - WORKED WITH THE OLD DB
-    app.get("/d3_graphs", (req, res) => {
-      const commuteQuery = req.query.ssm
-        ? `SELECT * FROM commutes WHERE ssm LIKE "${req.query.ssm}%" AND to_work LIKE "${req.query.to_work}%"`
-        : "SELECT * FROM commutes;";
+const currentDate = new Date();
+const currentMonth = currentDate.getMonth() + 1;
 
-      db.pool.query(commuteQuery, (_error, rows) => {
-        res.render("d3_graphs", { data: rows });
-      });
-    });
-    */
-
-app.get("/d3_graphs", (req, res) => {
-  const selectedMonth = req.query.month || 1; // Default to January if no month is selected
+app.get("/commuteGraphs", (req, res) => {
+  const selectedMonth = req.query.month || currentMonth; // Default to current month
 
   const commuteQuery = req.query.ssm
     ? `SELECT commute_date, ssm, to_home, to_work FROM commutes
@@ -97,12 +88,16 @@ app.get("/d3_graphs", (req, res) => {
       WHERE MONTH(c.commute_date) = ${selectedMonth};`;
 
   db.pool.query(commuteQuery, (_error, rows) => {
-    res.render("d3_graphs", { data: rows });
+    res.render("commuteGraphs", { data: rows });
   });
+});
+
+app.get("/cv", (req, res) => {
+  res.render("cv.hbs");
 });
 
 app.listen(PORT, () => {
   console.log(
-    `Express started on http://localhost:${PORT}; press Ctrl-C to terminate.`
+    `Express started on port ${PORT}; press Ctrl-C to terminate.`
   );
 });

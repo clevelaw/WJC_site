@@ -1,0 +1,100 @@
+<script src="https://d3js.org/d3.v4.js"></script>
+
+<html>
+<head>
+<!--Selects the month to get form dbk-->
+  <title>making dropdowns</title>
+
+
+
+</head>
+<h2>
+  Select a month to view commute data
+</h2>
+  <div class="center-content">
+      <form action="/commuteGraphs" method="get">
+        <select name="month" id="month">
+          <option value="" disabled selected>Select Month</option>
+          <option value="1">January - 1</option>
+          <option value="2">February - 2</option>
+          <option value="3">March - 3</option>
+          <option value="4">April - 4</option>
+          <option value="5">May - 5</option>
+          <option value="6">June - 6</option>
+          <option value="7">July - 7</option>
+          <option value="8">August - 8</option>
+          <option value="9">September - 9</option>
+          <option value="10">October - 10</option>
+          <option value="11">November - 11</option>
+          <option value="12">December - 12</option>
+        </select>
+        <button type="submit">Show Graphs</button>
+      </form>
+  </div>
+
+<br/>
+
+<!--options to filter by day of the week-->
+<h2>
+  Filter Graph by days of the week
+</h2>
+<div class="center-content">
+  <div class="checkbox-container">
+    <label><input type="checkbox" value="Monday" class="chkDay" checked>Monday</label><br>
+    <label><input type="checkbox" value="Tuesday" class="chkDay" checked>Tuesday</label><br>
+    <label><input type="checkbox" value="Wednesday" class="chkDay" checked>Wednesday</label><br>
+    <label><input type="checkbox" value="Thursday" class="chkDay" checked>Thursday</label><br>
+    <label><input type="checkbox" value="Friday" class="chkDay" checked>Friday</label><br>
+    <label><input type="checkbox" value="Saturday" class="chkDay" checked>Saturday</label><br>
+    <label><input type="checkbox" value="Sunday" class="chkDay" checked>Sunday</label><br>
+  </div>
+</div>
+
+
+
+<hr>
+
+<br/>
+
+<h2>
+  Draw vertical lines on the graph by time
+</h2>
+<!--button to draw user input lines -->
+<input type="number" id="homeX1" placeholder="Draw Line 1">
+<input type="number" id="homex2" placeholder="Draw Line 2">
+<button id="drawLineButton">Draw Line</button>
+<br/><br/><br/><br/>
+
+<div><svg id="d3Legend" height="60" width="580"></svg></div>
+<div class="center-content">
+  <div id="toWorkViz"></div>
+</div>
+<div class="center-content">
+<div id="toHomeViz"></div>
+</div>
+
+<hr>
+<div id="heatmap"></div>
+
+<hr>
+
+<input type="number" id="trafficDay" placeholder="Day">
+<input type="number" id="leaveTime" placeholder="Time to Leave Home">
+<input type="number" id="altLeaveTime" placeholder="Alternative Time to Leave Home">
+<input type="number" id="timeAtWork" placeholder="Time at Work">
+<button id="calcDiffButton">Calculate Difference</button>
+
+<!-- taking in data from the app.js -->
+<input type="hidden" value={{{json data}}} id="commute-data"  />
+
+</html>
+  <!--script>
+  // Get the hidden input element
+  var hiddenInput = document.getElementById("commute-data");
+  // Parse the JSON data from the hidden input's value
+  var jsonData = JSON.parse(hiddenInput.value);
+  // Now you can use the parsed jsonData object to inspect and work with the imported data
+  console.log(jsonData); // Log the parsed JSON data to the console
+  </script-->
+
+<script src="./js/d3Ridges.js"></script>
