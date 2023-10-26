@@ -291,6 +291,7 @@ drawLineButton.addEventListener("click", function() {
 //attemping gradiant color
 //  .attr("fill", "#69b3a2")
 //const dayColors = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"]
+
 const dayColors = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
 const color = d3.scaleOrdinal()
   .domain(dayColors)

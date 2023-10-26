@@ -23,6 +23,7 @@ app.engine(
 );
 app.set("view engine", ".hbs");
 
+
 /* Home Page*/
 app.get("/", (req, res) => {
   res.render("index");
@@ -78,22 +79,37 @@ const currentMonth = currentDate.getMonth() + 1;
 app.get("/commuteGraphs", (req, res) => {
   const selectedMonth = req.query.month || currentMonth; // Default to current month
 
-  const commuteQuery = req.query.ssm
-    ? `SELECT commute_date, ssm, to_home, to_work FROM commutes
-       WHERE ssm LIKE "${req.query.ssm}%" AND to_work LIKE "${req.query.to_work}%"
-       AND MONTH(commute_date) = ${selectedMonth};`
-    : `SELECT c.commute_date, c.ssm, c.to_home, c.to_work, c.to_work_no_traffic, c.to_home_no_traffic, d.day_of
-      FROM commutes c
-      INNER JOIN days d ON c.commute_date = d.date
-      WHERE MONTH(c.commute_date) = ${selectedMonth};`;
+  const ssmParam = req.query.ssm ? `${req.query.ssm}%` : "";
+  const toWorkParam = req.query.to_work ? `${req.query.to_work}%` : "";
 
-  db.pool.query(commuteQuery, (_error, rows) => {
-    res.render("commuteGraphs", { data: rows });
+  const commuteQuery = req.query.ssm
+    ? "SELECT commute_date, ssm, to_home, to_work FROM commutes " +
+      "WHERE ssm LIKE ? AND to_work LIKE ? AND MONTH(commute_date) = ?;"
+    : "SELECT c.commute_date, c.ssm, c.to_home, c.to_work, c.to_work_no_traffic, c.to_home_no_traffic, d.day_of " +
+      "FROM commutes c " +
+      "INNER JOIN days d ON c.commute_date = d.date " +
+      "WHERE MONTH(c.commute_date) = ?;";
+
+  const queryParams = req.query.ssm
+    ? [ssmParam, toWorkParam, selectedMonth]
+    : [selectedMonth];
+
+  db.pool.query(commuteQuery, queryParams, (error, rows) => {
+    if (error) {
+      console.error("Database error:", error);
+      res.status(500).send("Internal Server Error");
+    } else {
+      res.render("commuteGraphs", { data: rows });
+    }
   });
 });
 
 app.get("/cv", (req, res) => {
   res.render("cv.hbs");
+});
+
+app.get("/testcv", (req, res) => {
+  res.render("testcv.hbs");
 });
 
 app.listen(PORT, () => {

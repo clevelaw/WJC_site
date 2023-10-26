@@ -8,7 +8,7 @@
 
 
 </head>
-<h2>
+<h2 class="center">
   Select a month to view commute data
 </h2>
   <div class="center-content">
@@ -35,7 +35,7 @@
 <br/>
 
 <!--options to filter by day of the week-->
-<h2>
+<h2 class="center">
   Filter Graph by days of the week
 </h2>
 <div class="center-content">
@@ -56,16 +56,18 @@
 
 <br/>
 
-<h2>
+<h2 class="center">
   Draw vertical lines on the graph by time
 </h2>
 <!--button to draw user input lines -->
+<div class="center-content">
 <input type="number" id="homeX1" placeholder="Draw Line 1">
 <input type="number" id="homex2" placeholder="Draw Line 2">
 <button id="drawLineButton">Draw Line</button>
+</div>
 <br/><br/><br/><br/>
 
-<div><svg id="d3Legend" height="60" width="580"></svg></div>
+<div class="center-content"><svg id="d3Legend" height="60" width="580"></svg></div>
 <div class="center-content">
   <div id="toWorkViz"></div>
 </div>
@@ -77,13 +79,13 @@
 <div id="heatmap"></div>
 
 <hr>
-
+<div class="center-content">
 <input type="number" id="trafficDay" placeholder="Day">
 <input type="number" id="leaveTime" placeholder="Time to Leave Home">
 <input type="number" id="altLeaveTime" placeholder="Alternative Time to Leave Home">
 <input type="number" id="timeAtWork" placeholder="Time at Work">
 <button id="calcDiffButton">Calculate Difference</button>
-
+</div>
 <!-- taking in data from the app.js -->
 <input type="hidden" value={{{json data}}} id="commute-data"  />
 
